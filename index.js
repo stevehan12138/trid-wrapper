@@ -38,14 +38,20 @@ app.post('/upload', function(req, res) {
                 console.log(`stderr: ${stderr}`);
                 res.send('Error occured');
             } else {
-                let result = {}
-                let lines = stdout.split('\n').slice(5, -1);
-                result.name = lines[0].split(': ')[1].split('/')[1];
-                result.probabilities = lines.slice(1).map(line => {
-                    let [probability, name] = line.trim().split('% ');
-                    return { name, probability: probability + '%' };
-                });
-                res.send(result);
+                if(stdout.split('\n')[7].startsWith('Warning:')) {
+                    res.send({
+                        'msg': 'File is in plain text',
+                    });
+                } else {
+                    let result = {}
+                    let lines = stdout.split('\n').slice(5, -1);
+                    result.name = lines[0].split(': ')[1].split('/')[1];
+                    result.probabilities = lines.slice(1).map(line => {
+                        let [probability, name] = line.trim().split('% ');
+                        return { name, probability: probability + '%' };
+                    });
+                    res.send(result);
+                }
             }
             fs.unlinkSync(uploadPath);
         });
