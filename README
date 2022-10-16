@@ -1,0 +1,7 @@
+# TRID server wrapper
+
+calls TRID and returns the result
+
+Download trid and triddefs.trd
+
+setup for linux
