@@ -5,3 +5,5 @@ calls TRID and returns the result
 Download trid and triddefs.trd
 
 setup for linux
+
+Add an empty tmp folder
