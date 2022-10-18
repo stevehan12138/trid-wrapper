@@ -20,7 +20,7 @@ app.post('/upload', function(req, res) {
     }
 
     sampleFile = req.files.file;
-    uploadPath = __dirname + '/tmp/' + sampleFile.name;
+    uploadPath = __dirname + '/tmp/temp';
 
     if (/[\\\/\:\*\?\"\<\>\|]/.test(sampleFile.name)) {
         return res.status(400).send('Invalid filename');
@@ -30,7 +30,7 @@ app.post('/upload', function(req, res) {
         if (err)
             return res.status(500).send(err);
         
-        exec(`./trid "tmp/${sampleFile.name}"`, (error, stdout, stderr) => {
+        exec(`./trid "tmp/temp"`, (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
                 res.send('Error occured');
